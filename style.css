@@ -28,16 +28,27 @@ html, body, .container {
     font-family: "Roboto";
     src: url("font-default.ttf") format('truetype');
 }
+@font-face {
+    font-family: "Roboto-Light";
+    src: url("font-light.ttf") format('truetype');
+}
 h1 {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto-Light', sans-serif;
     font-size: 240px;
     text-align: center;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    right: 0;
-    margin-top: -240px;
-    transform: translateX(-50%);
+}
+p {
+    font-family: 'Roboto', sans-serif;
+}
+.center-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 100vh;
+    margin-top: -120px;
 }
 .no-select {
     -webkit-touch-callout: none; /* iOS Safari */

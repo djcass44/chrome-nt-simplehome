@@ -22,13 +22,14 @@ var x = setInterval(function() {
         strDate = date.toTimeString().substr(1, 4);
     else
         strDate = date.toTimeString().substr(0, 5);
-    document.getElementById("time").innerHTML = strDate;
+    document.getElementById("time").innerText = strDate;
+    document.getElementById("date").innerText = date.toDateString()
 }, 1000);
 
 var date = new Date();
 var hour = date.getHours();
 
-var titleColour = "#000000";
+var titleColour = "#363636";
 var textColour = "#000000";
 var backgroundColour = "#FAFAFA";
 if(hour >= 18 || hour < 7) {
