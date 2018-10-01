@@ -17,8 +17,13 @@
 
 var x = setInterval(function() {
     var date = new Date();
-    document.getElementById("time").innerHTML = date.getHours() + ":" + date.getMinutes();
-}, 100);
+    var strDate;
+    if(date.getHours() < 10)
+        strDate = date.toTimeString().substr(1, 4);
+    else
+        strDate = date.toTimeString().substr(0, 5);
+    document.getElementById("time").innerHTML = strDate;
+}, 1000);
 
 var date = new Date();
 var hour = date.getHours();
