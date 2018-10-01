@@ -8,6 +8,14 @@ This plugin is designed with Google Chrome in mind, so please don't expect it to
 
 ### Installing
 
+<i>Note:</i> Fonts are not provided, you will need to source them yourself.
+
+Recommended:
+
+    - font-default.ttf -> Roboto
+
+    - font-title.ttf -> Product Sans
+
 installation guide here
 
 ## Contributing
