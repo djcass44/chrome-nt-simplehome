@@ -31,8 +31,9 @@ const x = setInterval(function () {
         strDate = date.toTimeString().substr(1, 4);
     else
         strDate = date.toTimeString().substr(0, 5);
+    let formattedDate = `${date.toLocaleString("en-us", { weekday: "short" })}., ${date.getDay()} ${date.toLocaleString("en-us", { month: "short" })}.`;
     document.getElementById("time").innerText = strDate;
-    document.getElementById("date").innerText = date.toDateString() + dateSuffix
+    document.getElementById("date").innerText = formattedDate + dateSuffix
 }, 1000);
 
 const date = new Date();
