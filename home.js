@@ -22,7 +22,13 @@ const geoOptions = {
     maximumAge: 0
 };
 
-navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+chrome.storage.sync.get({
+    showWeather: true
+}, function(items) {
+    if(items.showWeather) {
+        navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+    }
+});
 
 const x = setInterval(function () {
     const date = new Date();
