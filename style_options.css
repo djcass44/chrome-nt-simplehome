@@ -14,9 +14,9 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-@import "styles/md-switch.css";
 @import "styles/md-button-raised.css";
 @import "styles/md-input-field.css";
+@import "styles/md-switch.css";
 
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,300,400');
 

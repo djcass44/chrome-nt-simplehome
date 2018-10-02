@@ -34,12 +34,9 @@
     <input type="checkbox" id="showWeather" name="set-name" class="switch-input">
     <label for="showWeather" class="switch-label">Show weather information (requires OWM API key)</label>
 </div>
-<div class="group" style="margin: 16px;">
-    <!--User's OWM API key field-->
-    <input id="owmKey" type="text" required>
-    <span class="highlight"></span>
-    <span class="bar"></span>
-    <label for="owmKey">Personal OWM API key</label>
+<div class="form__group" style="margin: 16px;">
+    <textarea id="owmKey" class="form__field" placeholder="Personal OWM API key" rows="1"></textarea>
+    <label for="owmKey" class="form__label">Personal OWM API key</label>
 </div>
 <div style="margin: 20px">
     <p>Generate an API key <a href="https://home.openweathermap.org/">here</a></p>
