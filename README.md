@@ -16,11 +16,13 @@ Recommended:
 
     - font-title.ttf -> Product Sans
 
-installation guide here
+    - font-light.ttf -> Roboto Light
+
+Once you've obtained these fonts, place them in the root directory of this project (along side the scripts)
 
 ## Contributing
 
-contribution guide here
+See [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ## Authors
 
