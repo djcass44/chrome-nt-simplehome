@@ -30,7 +30,12 @@ chrome.storage.sync.get({
     }
 });
 
+updateDate()
 const x = setInterval(function () {
+    updateDate()
+}, 1000);
+
+function updateDate() {
     const date = new Date();
     let strDate;
     if (date.getHours() < 10)
@@ -40,7 +45,7 @@ const x = setInterval(function () {
     let formattedDate = `${date.toLocaleString("en-us", { weekday: "short" })}., ${date.getDay()} ${date.toLocaleString("en-us", { month: "short" })}.`;
     document.getElementById("time").innerText = strDate;
     document.getElementById("date").innerText = formattedDate + dateSuffix
-}, 1000);
+}
 
 const date = new Date();
 const hour = date.getHours();
