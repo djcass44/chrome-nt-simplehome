@@ -14,6 +14,7 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+@import url("styles/md-ripple.css");
 
 html, body, .container {
     margin: 0;
@@ -42,6 +43,11 @@ p {
     font-family: 'Roboto', sans-serif;
     font-size: 24px;
 }
+.top-right {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 .center-screen {
     display: flex;
     flex-direction: column;
@@ -50,6 +56,13 @@ p {
     text-align: center;
     min-height: 100vh;
     margin-top: -120px;
+}
+.centred-img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 24px;
+    height: 24px;
 }
 .no-select {
     -webkit-touch-callout: none; /* iOS Safari */

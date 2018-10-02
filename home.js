@@ -22,18 +22,34 @@ const geoOptions = {
     maximumAge: 0
 };
 
-try {
-    chrome.storage.sync.get({
-        showWeather: true
-    }, function (items) {
-        if (items.showWeather) {
-            navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
-        }
-    });
+const optionsButton = document.getElementById("options-button");
+if(window.chrome && chrome.runtime && chrome.runtime.id) { // Check if running as extension
+    try {
+        optionsButton.addEventListener('click', function () {
+            chrome.tabs.create({'url': `chrome://extensions/?options=${chrome.runtime.id}`});
+        });
+    }
+    catch (e) {
+        optionsButton.style.display = 'none';
+        console.log("Hiding chrome settings button")
+    }
+    try {
+        chrome.storage.sync.get({
+            showWeather: true
+        }, function (items) {
+            if (items.showWeather) {
+                navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+            }
+        });
+    }
+    catch (e) {
+        console.error("Could not connect to chrome\n" + e.message)
+        console.log("Geolocation services have been disabled.")
+    }
 }
-catch (e) {
-    console.error("Could not connect to chrome\n" + e.message)
-    console.log("Geolocation services have been disabled.")
+else {
+    // User isn't running this as an extension - disable chrome api features
+    optionsButton.style.display = 'none';
 }
 
 updateDate()
@@ -95,9 +111,6 @@ function geoSuccess(pos) {
     const coords = pos.coords;
     app_id = 'a08a6f35015f856266be62404dcf2110'; // TODO make user generate own key
     api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${app_id}`;
-    console.log('Your current position is:');
-    console.log(`Latitude : ${coords.latitude}`);
-    console.log(`Longitude: ${coords.longitude}`);
     console.log(`More or less ${coords.accuracy} meters.`);
     const client = new HttpClient();
     client.get(api_url, function (response) {
