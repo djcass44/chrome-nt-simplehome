@@ -1,10 +1,17 @@
 {
-	"name":"New Tab",
+	"name":"SimpleNT",
 	"description":"Shows basic information in new tab such as time, weather, $features",
 	"version":"0.1",
 	"incognito":"split",
 	"chrome_url_overrides": {
 		"newtab":"home.html"
 	},
+	"options_ui": {
+		"page": "options.html",
+		"open_in_tab": false
+	},
+	"permissions": [
+		"storage"
+	],
 	"manifest_version": 2
 }

@@ -15,19 +15,21 @@
   ~     along with this program.  If not, see <https://www.gnu.org/licenses/>.
   -->
 
-<!DOCTYPE HTML>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <link rel="stylesheet" href="style_main.css">
+    <meta charset="UTF-8">
+    <title>Extension options</title>
+    <link rel="stylesheet" href="style_options.css">
 </head>
 <body>
+<label>
+    <input type="checkbox" id="showWeather">
+    Show weather information
+</label>
+<div id="status"></div>
+<button id="save">Save</button>
 
-<div class="center-screen">
-    <h1 id="time" class="no-select"></h1>
-    <p id="date" class="no-select"></p>
-</div>
-
-<script src='home.js'></script>
-
+<script src="options.js"></script>
 </body>
 </html>
