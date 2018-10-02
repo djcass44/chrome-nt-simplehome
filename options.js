@@ -18,8 +18,10 @@
 // Saves options to chrome.storage
 function save_options() {
     const showWeather = document.getElementById('showWeather').checked;
+    const geoAccuracy = document.getElementById('geoAccuracy').checked;
     chrome.storage.sync.set({
-        showWeather: showWeather
+        showWeather: showWeather,
+        geoAccuracy: geoAccuracy
     }, function() {
         // Update status to let user know options were saved.
         const status = document.getElementById('status');
@@ -33,11 +35,12 @@ function save_options() {
 // Restores select box and checkbox state using the preferences
 // stored in chrome.storage.
 function restore_options() {
-    // Use default value color = 'red' and likesColor = true.
     chrome.storage.sync.get({
-        showWeather: true
+        showWeather: true,
+        geoAccuracy: false
     }, function(items) {
         document.getElementById('showWeather').checked = items.showWeather;
+        document.getElementById('geoAccuracy').checked = items.geoAccuracy;
     });
 }
 document.addEventListener('DOMContentLoaded', restore_options);
