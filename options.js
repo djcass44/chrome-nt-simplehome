@@ -24,11 +24,19 @@ function save_options() {
         geoAccuracy: geoAccuracy
     }, function() {
         // Update status to let user know options were saved.
-        const status = document.getElementById('status');
-        status.textContent = 'Options saved.';
-        setTimeout(function() {
-            status.textContent = '';
-        }, 750);
+        if (Notification && Notification.permission === "granted") {
+            new Notification('Saved!', {
+                // icon: '',
+                body: "Options have been successfully saved.",
+            });
+        }
+        else {
+            const status = document.getElementById('status');
+            status.textContent = 'Options saved.';
+            setTimeout(function () {
+                status.textContent = '';
+            }, 750);
+        }
     });
 }
 
@@ -42,6 +50,11 @@ function restore_options() {
         document.getElementById('showWeather').checked = items.showWeather;
         document.getElementById('geoAccuracy').checked = items.geoAccuracy;
     });
+}
+
+if(Notification) {
+    if(Notification.permission !== "granted")
+        Notification.requestPermission();
 }
 document.addEventListener('DOMContentLoaded', restore_options);
 document.getElementById('save').addEventListener('click',
