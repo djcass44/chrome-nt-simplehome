@@ -16,7 +16,7 @@
  */
 
 let dateSuffix = "";
-const geoOptions = {
+let geoOptions = {
     enableHighAccuracy: false,
     timeout: 5000,
     maximumAge: 0
@@ -35,16 +35,19 @@ if(window.chrome && chrome.runtime && chrome.runtime.id) { // Check if running a
     }
     try {
         chrome.storage.sync.get({
-            showWeather: true
+            showWeather: true,
+            geoAccuracy: false
         }, function (items) {
             if (items.showWeather) {
+                geoOptions.enableHighAccuracy = items.geoAccuracy;
+                console.log("high accuracy: " + geoOptions.enableHighAccuracy);
                 navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
             }
         });
     }
     catch (e) {
-        console.error("Could not connect to chrome\n" + e.message)
-        console.log("Geolocation services have been disabled.")
+        console.error("Could not connect to chrome\n" + e.message);
+        console.log("Geolocation services have been disabled.");
     }
 }
 else {
@@ -66,7 +69,7 @@ function updateDate() {
         strDate = date.toTimeString().substr(0, 5);
     let formattedDate = `${date.toLocaleString("en-us", { weekday: "short" })}., ${date.getDay()} ${date.toLocaleString("en-us", { month: "short" })}.`;
     document.getElementById("time").innerText = strDate;
-    document.getElementById("date").innerText = formattedDate + dateSuffix
+    document.getElementById("date").innerText = formattedDate + dateSuffix;
 }
 
 const date = new Date();
