@@ -1,7 +1,7 @@
 {
 	"name":"SimpleNT",
 	"description":"Shows basic information in new tab such as time and weather",
-	"version":"0.1",
+	"version":"0.2",
 	"incognito":"split",
 	"chrome_url_overrides": {
 		"newtab":"home.html"
@@ -13,7 +13,8 @@
 	"permissions": [
 		"storage",
 		"geolocation",
-		"notifications"
+		"notifications",
+		"https://api.openweathermap.org/data/2.5/*"
 	],
     "icons": {
       "16": "drawables/icon16.png",

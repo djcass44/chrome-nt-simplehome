@@ -24,10 +24,12 @@ let geoOptions = {
 };
 
 const optionsButton = document.getElementById("options-button");
+const locationButton = document.getElementById("key-button");
+locationButton.style.display = 'none';
 if(window.chrome && chrome.runtime && chrome.runtime.id) { // Check if running as extension
     try {
         optionsButton.addEventListener('click', function () {
-            chrome.tabs.create({'url': `chrome://extensions/?options=${chrome.runtime.id}`});
+            openExtensionSettings()
         });
     }
     catch (e) {
@@ -106,7 +108,7 @@ let HttpClient = function() {
         anHttpRequest.onreadystatechange = function() {
             if (anHttpRequest.readyState === 4 && anHttpRequest.status === 200)
                 aCallback(anHttpRequest.responseText);
-        }
+        };
 
         anHttpRequest.open( "GET", aUrl, true );
         anHttpRequest.send( null );
@@ -119,16 +121,41 @@ function geoSuccess(pos) {
     app_id = geoOptions['owmKey'];
     api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${app_id}`;
     console.log(`More or less ${coords.accuracy} meters.`);
-    const client = new HttpClient();
-    client.get(api_url, function (response) {
-        console.log("OWM response received");
-        const json = JSON.parse(response);
-        let temp = json.main.temp - 273.15; // TODO add fahrenheit support
-        let descr = json.weather[0].description
-        descr = descr.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
-        dateSuffix = ` - ${descr} - ${temp.toFixed(1)} \xB0 - ${json.name}`
-    })
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", api_url, true);
+    xhr.onload = function(e) {
+        if(xhr.readyState === 4) {
+            if(xhr.status === 200) {
+                const json = JSON.parse(xhr.responseText);
+                let temp = json.main.temp - 273.15; // TODO add fahrenheit support
+                let descr = json.weather[0].description;
+                descr = descr.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+                dateSuffix = ` - ${descr} - ${temp.toFixed(1)} \xB0 - ${json.name}`;
+            }
+            else {
+                console.warn("Probably issue with API key");
+                showOWMWarning();
+            }
+        }
+
+    }
+    xhr.send(null);
 }
 function geoError(err) {
     console.warn(`ERROR(${err.code}): ${err.message}`);
+}
+function showOWMWarning() {
+    locationButton.style.display = 'block';
+    locationButton.addEventListener('click', function () {
+        if(confirm("There was an retrieving weather data. It may be due to a key error, or you haven't set one up!\n\nPress OK to open options.")) {
+            openExtensionSettings();
+        }
+    });
+}
+function openExtensionSettings() {
+    // chrome.tabs.create({'url': `chrome://extensions/?options=${chrome.runtime.id}`});
+    chrome.tabs.query({currentWindow: true, active: true}, function (tab) {
+        chrome.tabs.update(tab.id, {url: `chrome://extensions/?options=${chrome.runtime.id}`});
+    });
 }
