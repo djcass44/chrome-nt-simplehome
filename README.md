@@ -2,6 +2,16 @@
 
 This project is a Chrome new-tab plugin with the purpose of providing glancing information to the user
 
+Current information provided:
+
+- Time
+
+- Date
+
+- Location
+
+- Weather overview (status, temperature)
+
 ### Prerequisites
 
 This plugin is designed with Google Chrome in mind, so please don't expect it to work in anything else. Feel free to create a pull request if you want to add compatibility!
@@ -19,6 +29,20 @@ Recommended:
     - font-light.ttf -> Roboto Light
 
 Once you've obtained these fonts, place them in the root directory of this project (along side the scripts)
+
+<b>Deploying locally</b>
+
+1. Go to `chrome://extensions`
+
+2. Enable 'Developer mode'
+
+3. Click 'Pack extension'
+
+4. For 'Extension root directory' navigate to the project directory
+
+5. Click 'Pack extension'
+
+6. (<i>optional</i>) Drag-and-drop the new .crx file onto the Chrome extensions page to install
 
 ### Bugs & Issues
 
