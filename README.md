@@ -16,6 +16,9 @@ Current information provided:
 
 This plugin is designed with Google Chrome in mind, so please don't expect it to work in anything else. Feel free to create a pull request if you want to add compatibility!
 
+This plugin gets weather data from [OpenWeatherMap](https://openweathermap.org/) which requires an API key.
+Since a key only provides ~60 requests per minute by default a single master-key cannot be used, the plugin will not provide weather information unless you provide your own key in the options menu.
+
 ### Installing
 
 <b>Testing locally</b>
