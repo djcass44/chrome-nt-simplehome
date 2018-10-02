@@ -1,4 +1,4 @@
-## Simple Home
+## SimpleNT
 
 This project is a Chrome new-tab plugin with the purpose of providing glancing information to the user
 
