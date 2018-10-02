@@ -1,7 +1,7 @@
 {
 	"name":"SimpleNT",
 	"description":"Shows basic information in new tab such as time and weather",
-	"version":"0.2",
+	"version":"0.3",
 	"incognito":"split",
 	"chrome_url_overrides": {
 		"newtab":"home.html"
