@@ -14,10 +14,14 @@
  *     You should have received a copy of the GNU General Public License
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+@import "styles/md-switch.css";
+@import "styles/md-button-raised.css";
+
 @font-face {
     font-family: "Roboto";
     src: url("font-default.ttf") format('truetype');
 }
 label {
     font-family: 'Roboto', sans-serif;
+    font-size: 16px;
 }
