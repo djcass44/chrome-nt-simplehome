@@ -1,6 +1,6 @@
 {
 	"name":"SimpleNT",
-	"description":"Shows basic information in new tab such as time, weather, $features",
+	"description":"Shows basic information in new tab such as time and weather",
 	"version":"0.1",
 	"incognito":"split",
 	"chrome_url_overrides": {
@@ -15,5 +15,10 @@
 		"geolocation",
 		"notifications"
 	],
+    "icons": {
+      "16": "drawables/icon16.png",
+      "48": "drawables/icon48.png",
+      "128": "drawables/icon128.png"
+    },
 	"manifest_version": 2
 }

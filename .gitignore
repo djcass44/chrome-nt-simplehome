@@ -76,6 +76,8 @@ fabric.properties
 .idea/httpRequests
 
 *.ttf
+icon.zip
+
 ### Node template
 # Logs
 logs
