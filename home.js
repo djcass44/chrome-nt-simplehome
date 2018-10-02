@@ -19,7 +19,8 @@ let dateSuffix = "";
 let geoOptions = {
     enableHighAccuracy: false,
     timeout: 5000,
-    maximumAge: 0
+    maximumAge: 0,
+    owmKey: '',
 };
 
 const optionsButton = document.getElementById("options-button");
@@ -36,9 +37,11 @@ if(window.chrome && chrome.runtime && chrome.runtime.id) { // Check if running a
     try {
         chrome.storage.sync.get({
             showWeather: true,
-            geoAccuracy: false
+            geoAccuracy: false,
+            owmKey : ''
         }, function (items) {
             if (items.showWeather) {
+                geoOptions.owmKey = items.owmKey;
                 geoOptions.enableHighAccuracy = items.geoAccuracy;
                 console.log("high accuracy: " + geoOptions.enableHighAccuracy);
                 navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
@@ -112,7 +115,8 @@ let HttpClient = function() {
 
 function geoSuccess(pos) {
     const coords = pos.coords;
-    app_id = 'a08a6f35015f856266be62404dcf2110'; // TODO make user generate own key
+    //original key = 'a08a6f35015f856266be62404dcf2110'
+    app_id = geoOptions['owmKey'];
     api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${app_id}`;
     console.log(`More or less ${coords.accuracy} meters.`);
     const client = new HttpClient();

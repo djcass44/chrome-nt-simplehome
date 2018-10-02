@@ -16,12 +16,15 @@
  */
 
 // Saves options to chrome.storage
-function save_options() {
+function save_options() {   
     const showWeather = document.getElementById('showWeather').checked;
     const geoAccuracy = document.getElementById('geoAccuracy').checked;
+    const owmKey = document.getElementById('owmKey').value;
+    
     chrome.storage.sync.set({
         showWeather: showWeather,
-        geoAccuracy: geoAccuracy
+        geoAccuracy: geoAccuracy,
+        owmKey : owmKey
     }, function() {
         // Update status to let user know options were saved.
         if (Notification && Notification.permission === "granted") {
@@ -45,10 +48,12 @@ function save_options() {
 function restore_options() {
     chrome.storage.sync.get({
         showWeather: true,
-        geoAccuracy: false
+        geoAccuracy: false,
+        owmKey: ''
     }, function(items) {
         document.getElementById('showWeather').checked = items.showWeather;
         document.getElementById('geoAccuracy').checked = items.geoAccuracy;
+        document.getElementById('owmKey').value = items.owmKey;
     });
 }
 
