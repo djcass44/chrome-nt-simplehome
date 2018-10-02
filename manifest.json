@@ -11,7 +11,8 @@
 		"open_in_tab": false
 	},
 	"permissions": [
-		"storage"
+		"storage",
+		"geolocation"
 	],
 	"manifest_version": 2
 }
