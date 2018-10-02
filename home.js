@@ -15,23 +15,32 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-var x = setInterval(function() {
-    var date = new Date();
-    var strDate;
-    if(date.getHours() < 10)
+let dateSuffix = "";
+const geoOptions = {
+    enableHighAccuracy: false,
+    timeout: 5000,
+    maximumAge: 0
+};
+
+navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+
+const x = setInterval(function () {
+    const date = new Date();
+    let strDate;
+    if (date.getHours() < 10)
         strDate = date.toTimeString().substr(1, 4);
     else
         strDate = date.toTimeString().substr(0, 5);
     document.getElementById("time").innerText = strDate;
-    document.getElementById("date").innerText = date.toDateString()
+    document.getElementById("date").innerText = date.toDateString() + dateSuffix
 }, 1000);
 
-var date = new Date();
-var hour = date.getHours();
+const date = new Date();
+const hour = date.getHours();
 
-var titleColour = "#363636";
-var textColour = "#000000";
-var backgroundColour = "#FAFAFA";
+let titleColour = "#363636";
+let textColour = "#000000";
+let backgroundColour = "#FAFAFA";
 if(hour >= 18 || hour < 7) {
     backgroundColour = "#263238";
     textColour = "#757575";
@@ -41,11 +50,45 @@ if(hour >= 18 || hour < 7) {
 document.body.style.backgroundColor = backgroundColour;
 
 
-var pElements = document.getElementsByTagName("p");
-for(var i = 0; i < pElements.length; i++) {
+const pElements = document.getElementsByTagName("p");
+for(let i = 0; i < pElements.length; i++) {
     pElements[i].style.color = textColour;
 }
-var hElements = document.getElementsByTagName("h1");
-for(var j = 0; j < hElements.length; j++) {
+const hElements = document.getElementsByTagName("h1");
+for(let j = 0; j < hElements.length; j++) {
     hElements[j].style.color = titleColour;
+}
+
+
+let HttpClient = function() {
+    this.get = function(aUrl, aCallback) {
+        var anHttpRequest = new XMLHttpRequest();
+        anHttpRequest.onreadystatechange = function() {
+            if (anHttpRequest.readyState === 4 && anHttpRequest.status === 200)
+                aCallback(anHttpRequest.responseText);
+        }
+
+        anHttpRequest.open( "GET", aUrl, true );
+        anHttpRequest.send( null );
+    }
+};
+
+function geoSuccess(pos) {
+    const coords = pos.coords;
+    app_id = 'a08a6f35015f856266be62404dcf2110'; // TODO make user generate own key
+    api_url = `https://api.openweathermap.org/data/2.5/weather?lat=${coords.latitude}&lon=${coords.longitude}&appid=${app_id}`;
+    console.log('Your current position is:');
+    console.log(`Latitude : ${coords.latitude}`);
+    console.log(`Longitude: ${coords.longitude}`);
+    console.log(`More or less ${coords.accuracy} meters.`);
+    const client = new HttpClient();
+    client.get(api_url, function (response) {
+        console.log("OWM response received");
+        const json = JSON.parse(response);
+        let temp = json.main.temp - 273.15; // TODO add fahrenheit support
+        dateSuffix = ` - ${json.weather[0].description} - ${temp.toFixed(1)} \xB0`
+    })
+}
+function geoError(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
 }
