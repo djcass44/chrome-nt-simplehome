@@ -22,16 +22,22 @@ const geoOptions = {
     maximumAge: 0
 };
 
-chrome.storage.sync.get({
-    showWeather: true
-}, function(items) {
-    if(items.showWeather) {
-        navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
-    }
-});
+try {
+    chrome.storage.sync.get({
+        showWeather: true
+    }, function (items) {
+        if (items.showWeather) {
+            navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+        }
+    });
+}
+catch (e) {
+    console.error("Could not connect to chrome\n" + e.message)
+    console.log("Geolocation services have been disabled.")
+}
 
 updateDate()
-const x = setInterval(function () {
+setInterval(function () {
     updateDate()
 }, 1000);
 
@@ -74,7 +80,7 @@ for(let j = 0; j < hElements.length; j++) {
 
 let HttpClient = function() {
     this.get = function(aUrl, aCallback) {
-        var anHttpRequest = new XMLHttpRequest();
+        const anHttpRequest = new XMLHttpRequest();
         anHttpRequest.onreadystatechange = function() {
             if (anHttpRequest.readyState === 4 && anHttpRequest.status === 200)
                 aCallback(anHttpRequest.responseText);
@@ -100,7 +106,7 @@ function geoSuccess(pos) {
         let temp = json.main.temp - 273.15; // TODO add fahrenheit support
         let descr = json.weather[0].description
         descr = descr.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
-        dateSuffix = `\n${descr} - ${temp.toFixed(1)} \xB0\n${json.name}`
+        dateSuffix = ` - ${descr} - ${temp.toFixed(1)} \xB0 - ${json.name}`
     })
 }
 function geoError(err) {
