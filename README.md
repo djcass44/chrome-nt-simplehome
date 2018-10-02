@@ -18,17 +18,18 @@ This plugin is designed with Google Chrome in mind, so please don't expect it to
 
 ### Installing
 
-<i>Note:</i> Fonts are not provided, you will need to source them yourself.
+<b>Testing locally</b>
 
-Recommended:
+If you open the html files manually, they will not be able to use Chrome API features.
+In order to do so, you must add the project as an extension.
 
-    - font-default.ttf -> Roboto
+1. Go to `chrome://extensions`
 
-    - font-title.ttf -> Product Sans
+2. Enable 'Developer mode'
 
-    - font-light.ttf -> Roboto Light
+3. Click 'Load unpacked'
 
-Once you've obtained these fonts, place them in the root directory of this project (along side the scripts)
+4. Navigate to the project directory
 
 <b>Deploying locally</b>
 
