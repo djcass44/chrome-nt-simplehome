@@ -25,21 +25,27 @@
 <body>
 
 <div>
-    <!--Show weather information switch-->
-    <input type="checkbox" id="showWeather" name="set-name" class="switch-input">
-    <label for="showWeather" class="switch-label">Show weather information</label>
-</div>
-<div>
     <!--Location high accuracy switch-->
     <input type="checkbox" id="geoAccuracy" name="set-name" class="switch-input">
     <label for="geoAccuracy" class="switch-label">Use high-accuracy location</label>
 </div>
-    <!--User's OWM API key field-->
 <div>
-    <p><input id="owmKey">Please enter your <a href="https://home.openweathermap.org/">OWM API key</a></p>
+    <!--Show weather information switch-->
+    <input type="checkbox" id="showWeather" name="set-name" class="switch-input">
+    <label for="showWeather" class="switch-label">Show weather information (requires OWM API key)</label>
+</div>
+<div class="group" style="margin: 16px;">
+    <!--User's OWM API key field-->
+    <input id="owmKey" type="text" required>
+    <span class="highlight"></span>
+    <span class="bar"></span>
+    <label for="owmKey">Personal OWM API key</label>
+</div>
+<div style="margin: 20px">
+    <p>Generate an API key <a href="https://home.openweathermap.org/">here</a></p>
 </div>
 
-<div>
+<div style="margin: 12px">
     <div id="status"></div>
     <button id="save" class="material-button-raised">Save</button>
 </div>
