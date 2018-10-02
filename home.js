@@ -86,7 +86,9 @@ function geoSuccess(pos) {
         console.log("OWM response received");
         const json = JSON.parse(response);
         let temp = json.main.temp - 273.15; // TODO add fahrenheit support
-        dateSuffix = ` - ${json.weather[0].description} - ${temp.toFixed(1)} \xB0`
+        let descr = json.weather[0].description
+        descr = descr.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
+        dateSuffix = `\n${descr} - ${temp.toFixed(1)} \xB0\n${json.name}`
     })
 }
 function geoError(err) {
