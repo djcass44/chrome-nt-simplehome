@@ -15,6 +15,7 @@
  *     along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 @import "styles/md-switch.css";
+@import "styles/md-button-raised.css";
 
 @font-face {
     font-family: "Roboto";
@@ -22,4 +23,5 @@
 }
 label {
     font-family: 'Roboto', sans-serif;
+    font-size: 16px;
 }
