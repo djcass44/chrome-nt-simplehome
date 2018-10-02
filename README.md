@@ -20,6 +20,16 @@ Recommended:
 
 Once you've obtained these fonts, place them in the root directory of this project (along side the scripts)
 
+### Bugs & Issues
+
+Think you've found a bug? Please let us know ASAP.
+
+This can be accomplished by opening a GitHub issue, or emailing a maintainer.
+
+Please try to be as verbose as possible, and provide console logs if you can.
+
+<i>Note:</i> If you cannot provide logs and we are unable to reproduce the bug, your issue may be closed.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
