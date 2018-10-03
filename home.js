@@ -134,20 +134,20 @@ function geoSuccess(pos) {
             if(xhr.status === 200) {
                 const json = JSON.parse(xhr.responseText);
                 const countryCode = json.sys.country;
-        let tempUnit;
-        if (
-            countryCode === 'US' || //United States
-            countryCode === 'PW' || //Palau
-            countryCode === 'FM' || //Federated States of Micronesia
-            countryCode === 'MH' || //Marshall Islands
-            countryCode === 'BS' || //The Bahamas
-            countryCode === 'BZ' || //Belize
-            countryCode === 'KY'    //Cayman Islands
-        )
-            tempUnit = 'F';
-        else
-            tempUnit = 'C';
-        let temp = convertTemp(json.main.temp, savedTempUnit || tempUnit)
+                let tempUnit;
+                if (
+                    countryCode === 'US' || //United States
+                    countryCode === 'PW' || //Palau
+                    countryCode === 'FM' || //Federated States of Micronesia
+                    countryCode === 'MH' || //Marshall Islands
+                    countryCode === 'BS' || //The Bahamas
+                    countryCode === 'BZ' || //Belize
+                    countryCode === 'KY'    //Cayman Islands
+                )
+                    tempUnit = 'F';
+                else
+                    tempUnit = 'C';
+                let temp = convertTemp(json.main.temp, savedTempUnit || tempUnit);
                 let descr = json.weather[0].description;
                 descr = descr.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
                 dateSuffix = ` - ${descr} - ${temp.toFixed(1)} \xB0 - ${json.name}`;

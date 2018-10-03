@@ -57,10 +57,12 @@ function restore_options() {
         document.getElementById('showWeather').checked = items.showWeather;
         document.getElementById('geoAccuracy').checked = items.geoAccuracy;
         document.getElementById('owmKey').value = items.owmKey;
-        if (items.tempUnit === 'F')
-            document.getElementById('fahrenheit').checked = true;
-        else
-            document.getElementById('celsius').checked = true;
+        if (items.tempUnit) {
+            if (items.tempUnit === 'F')
+                document.getElementById('fahrenheit').checked = true;
+            else
+                document.getElementById('celsius').checked = true;
+        }
     });
 }
 
