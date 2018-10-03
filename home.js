@@ -16,6 +16,7 @@
  */
 
 let dateSuffix = "";
+let savedTempUnit = "";
 let geoOptions = {
     enableHighAccuracy: false,
     timeout: 5000,
@@ -40,13 +41,17 @@ if(window.chrome && chrome.runtime && chrome.runtime.id) { // Check if running a
         chrome.storage.sync.get({
             showWeather: true,
             geoAccuracy: false,
-            owmKey : ''
+            owmKey : '',
+            tempUnit: true,
         }, function (items) {
             if (items.showWeather) {
                 geoOptions.owmKey = items.owmKey;
                 geoOptions.enableHighAccuracy = items.geoAccuracy;
                 console.log("high accuracy: " + geoOptions.enableHighAccuracy);
                 navigator.geolocation.getCurrentPosition(geoSuccess, geoError, geoOptions);
+            }
+            if (items.tempUnit) {
+              savedTempUnit = items.tempUnit;
             }
         });
     }
@@ -128,7 +133,21 @@ function geoSuccess(pos) {
         if(xhr.readyState === 4) {
             if(xhr.status === 200) {
                 const json = JSON.parse(xhr.responseText);
-                let temp = json.main.temp - 273.15; // TODO add fahrenheit support
+                const countryCode = json.sys.country;
+                let tempUnit;
+                if (
+                    countryCode === 'US' || //United States
+                    countryCode === 'PW' || //Palau
+                    countryCode === 'FM' || //Federated States of Micronesia
+                    countryCode === 'MH' || //Marshall Islands
+                    countryCode === 'BS' || //The Bahamas
+                    countryCode === 'BZ' || //Belize
+                    countryCode === 'KY'    //Cayman Islands
+                )
+                    tempUnit = 'F';
+                else
+                    tempUnit = 'C';
+                let temp = convertTemp(json.main.temp, savedTempUnit || tempUnit);
                 let descr = json.weather[0].description;
                 descr = descr.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
                 dateSuffix = ` - ${descr} - ${temp.toFixed(1)} \xB0 - ${json.name}`;
@@ -158,4 +177,11 @@ function openExtensionSettings() {
     chrome.tabs.query({currentWindow: true, active: true}, function (tab) {
         chrome.tabs.update(tab.id, {url: `chrome://extensions/?options=${chrome.runtime.id}`});
     });
+}
+
+function convertTemp(temp, unit) {
+    if (unit === 'C')
+        return temp - 273.15;
+    else
+        return ((1.8 * (temp - 273.15)) + 32);
 }
