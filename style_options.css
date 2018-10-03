@@ -24,6 +24,12 @@
     font-weight: 300;
     font-size: 16px;
 }
+p {
+    font-size: 16px;
+}
 body {
     font-family: 'Roboto', sans-serif;
+}
+.ignore-css {
+    all: unset;
 }
