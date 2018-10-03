@@ -150,7 +150,7 @@ function geoSuccess(pos) {
                 let temp = convertTemp(json.main.temp, savedTempUnit || tempUnit);
                 let descr = json.weather[0].description;
                 descr = descr.toLowerCase().split(' ').map((s) => s.charAt(0).toUpperCase() + s.substring(1)).join(' ');
-                dateSuffix = ` - ${descr} - ${temp.toFixed(1)} \xB0 - ${json.name}`;
+                dateSuffix = ` - ${descr} - ${getFormattedTemp(temp, savedTempUnit || tempUnit)} - ${json.name}`;
             }
             else {
                 console.warn("Probably issue with API key");
@@ -184,4 +184,7 @@ function convertTemp(temp, unit) {
         return temp - 273.15;
     else
         return ((1.8 * (temp - 273.15)) + 32);
+}
+function getFormattedTemp(temp, unit) {
+    return temp.toFixed(1) + " \xB0 " + unit;
 }
