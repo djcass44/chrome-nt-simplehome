@@ -77,7 +77,7 @@ function updateDate() {
         strDate = date.toTimeString().substr(1, 4);
     else
         strDate = date.toTimeString().substr(0, 5);
-    let formattedDate = `${date.toLocaleString("en-us", { weekday: "short" })}., ${date.getDay()} ${date.toLocaleString("en-us", { month: "short" })}.`;
+    let formattedDate = `${date.toLocaleString("en-us", { weekday: "short" })}., ${date.getDate()} ${date.toLocaleString("en-us", { month: "short" })}.`;
     document.getElementById("time").innerText = strDate;
     document.getElementById("date").innerText = formattedDate + dateSuffix;
 }
