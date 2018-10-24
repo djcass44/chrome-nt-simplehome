@@ -23,6 +23,7 @@ let geoOptions = {
     maximumAge: 0,
     owmKey: '',
 };
+let savedThemeType = '';
 
 const optionsButton = document.getElementById("options-button");
 const locationButton = document.getElementById("key-button");
@@ -43,6 +44,7 @@ if(window.chrome && chrome.runtime && chrome.runtime.id) { // Check if running a
             geoAccuracy: false,
             owmKey : '',
             tempUnit: true,
+            themeType: '',
         }, function (items) {
             if (items.showWeather) {
                 geoOptions.owmKey = items.owmKey;
@@ -53,6 +55,8 @@ if(window.chrome && chrome.runtime && chrome.runtime.id) { // Check if running a
             if (items.tempUnit) {
               savedTempUnit = items.tempUnit;
             }
+            savedThemeType = items.themeType;
+            updateTheme();
         });
     }
     catch (e) {
@@ -63,9 +67,11 @@ if(window.chrome && chrome.runtime && chrome.runtime.id) { // Check if running a
 else {
     // User isn't running this as an extension - disable chrome api features
     optionsButton.style.display = 'none';
+    savedThemeType = "Auto";
+    updateTheme()
 }
 
-updateDate()
+updateDate();
 setInterval(function () {
     updateDate()
 }, 1000);
@@ -85,25 +91,28 @@ function updateDate() {
 const date = new Date();
 const hour = date.getHours();
 
-let titleColour = "#363636";
-let textColour = "#000000";
-let backgroundColour = "#FAFAFA";
-if(hour >= 18 || hour < 7) {
-    backgroundColour = "#263238";
-    textColour = "#757575";
-    titleColour = "#9e9e9e";
-}
+updateTheme();
 
-document.body.style.backgroundColor = backgroundColour;
-
-
-const pElements = document.getElementsByTagName("p");
-for(let i = 0; i < pElements.length; i++) {
-    pElements[i].style.color = textColour;
-}
-const hElements = document.getElementsByTagName("h1");
-for(let j = 0; j < hElements.length; j++) {
-    hElements[j].style.color = titleColour;
+function updateTheme() {
+    let titleColour = "#363636";
+    let textColour = "#000000";
+    let backgroundColour = "#FAFAFA";
+    if(savedThemeType !== "Light") {
+        if (savedThemeType === "Dark" || (hour >= 18 || hour < 7)) {
+            backgroundColour = "#263238";
+            textColour = "#757575";
+            titleColour = "#9e9e9e";
+        }
+    }
+    document.body.style.backgroundColor = backgroundColour;
+    const pElements = document.getElementsByTagName("p");
+    for(let i = 0; i < pElements.length; i++) {
+        pElements[i].style.color = textColour;
+    }
+    const hElements = document.getElementsByTagName("h1");
+    for(let j = 0; j < hElements.length; j++) {
+        hElements[j].style.color = titleColour;
+    }
 }
 
 
