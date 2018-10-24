@@ -19,6 +19,7 @@
 function save_options() {
     const showWeather = document.getElementById('showWeather').checked;
     const tempUnit = document.querySelector('input[name="temp"]:checked').value;
+    const themeType = document.querySelector('input[name="theme"]:checked').value;
     const geoAccuracy = document.getElementById('geoAccuracy').checked;
     const owmKey = document.getElementById('owmKey').value;
 
@@ -27,6 +28,7 @@ function save_options() {
         geoAccuracy: geoAccuracy,
         owmKey : owmKey,
         tempUnit: tempUnit,
+        themeType: themeType,
     }, function() {
         // Update status to let user know options were saved.
         if (Notification && Notification.permission === "granted") {
@@ -52,7 +54,8 @@ function restore_options() {
         showWeather: true,
         geoAccuracy: false,
         owmKey: '',
-        tempUnit: true
+        tempUnit: true,
+        themeType: ''
     }, function(items) {
         document.getElementById('showWeather').checked = items.showWeather;
         document.getElementById('geoAccuracy').checked = items.geoAccuracy;
@@ -63,6 +66,12 @@ function restore_options() {
             else
                 document.getElementById('celsius').checked = true;
         }
+        if(items.themeType === 'Dark')
+            document.getElementById('theme-dark').checked = true;
+        else if(items.themeType === 'Light')
+            document.getElementById('theme-light').checked = true;
+        else
+            document.getElementById('theme-auto').checked = true;
     });
 }
 
